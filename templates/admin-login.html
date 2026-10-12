@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login | Delux Tour & Travel</title>
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="alternate icon" href="images/favicon.svg">
+  <link rel="stylesheet" href="style.css?v=4">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body class="auth-page admin-auth-page">
+  <div class="auth-wrap">
+    <a class="logo auth-logo" href="index.html">
+      <img src="images/logo-icon.svg" class="logo-emblem" alt="Delux Tour & Travel">
+      <span>DELUX</span>
+      <small>TOUR & TRAVEL</small>
+    </a>
+    <div class="auth-card">
+      <p class="eyebrow">STAFF ONLY</p>
+      <h1>Admin Panel</h1>
+      <p>Sign in to manage bookings, trip plans and messages.</p>
+      <form id="adminLoginForm">
+        <label>Admin Email
+          <input type="email" name="email" required placeholder="admin@deluxtour.com">
+        </label>
+        <label>Password
+          <input type="password" name="password" required placeholder="••••••••">
+        </label>
+        <button class="btn primary full" type="submit">Login to Admin Panel →</button>
+        <p class="form-status" id="adminLoginStatus"></p>
+      </form>
+      <p class="switch"><a href="index.html">← Back to website</a></p>
+    </div>
+  </div>
+  <script src="admin.js?v=4"></script>
+</body>
+</html>

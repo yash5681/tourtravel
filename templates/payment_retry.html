@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retry Payment #{{ booking.booking_reference }} | Delux Tour & Travel</title>
+  <link rel="icon" type="image/svg+xml" href="/static/images/favicon.svg">
+  <link rel="alternate icon" href="/static/images/favicon.svg">
+  <link rel="stylesheet" href="/static/style.css?v=6">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body style="background:#fcfbf9">
+  <header class="header">
+    <a class="logo" href="/index.html">
+      <img src="/static/images/logo-icon.svg" class="logo-emblem" alt="Delux Tour & Travel">
+      <span>DELUX</span>
+      <small>TOUR & TRAVEL</small>
+    </a>
+    <button class="menu-btn" id="menuBtn">☰</button>
+    <nav id="nav">
+      <a href="/index.html">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/packages.html">Packages</a>
+      <a href="/plan.html">Plan Trip</a>
+      <a href="/gallery.html">Gallery</a>
+      <a href="/contact.html">Contact</a>
+      <a class="nav-login" href="/profile.html">My Profile</a>
+    </nav>
+  </header>
+
+  <main style="max-width: 680px; margin: 40px auto; padding: 0 20px;">
+    <div class="booking-receipt-card" style="box-shadow: 0 10px 40px rgba(0,0,0,0.06); border: 1px solid #e7e2d6;">
+      <span class="receipt-badge" style="background:#fef3c7;color:#92400e;font-weight:700;padding:4px 12px;border-radius:20px;font-size:12px;letter-spacing:1px;">PENDING PAYMENT RETRY</span>
+      <h1 style="font-family:'Playfair Display',serif;font-size:26px;color:#0c2340;margin:12px 0 6px;">Complete Your Tour Booking</h1>
+      <p style="color:#64748b;font-size:14px;margin-bottom:20px;">Review your reserved trip details and launch Razorpay secure online payment.</p>
+
+      <table class="receipt-table" style="width:100%;border-collapse:collapse;margin:16px 0;text-align:left;font-size:13.5px;">
+        <tr style="border-bottom:1px solid #f1ece1;">
+          <td style="padding:10px 0;color:#64748b;">Booking Reference:</td>
+          <td style="padding:10px 0;text-align:right;"><code style="font-weight:bold;color:#0c2340;">{{ booking.booking_reference }}</code></td>
+        </tr>
+        <tr style="border-bottom:1px solid #f1ece1;">
+          <td style="padding:10px 0;color:#64748b;">Tour Package:</td>
+          <td style="padding:10px 0;text-align:right;"><strong>{{ booking.package_title }}</strong></td>
+        </tr>
+        <tr style="border-bottom:1px solid #f1ece1;">
+          <td style="padding:10px 0;color:#64748b;">Traveler:</td>
+          <td style="padding:10px 0;text-align:right;">{{ booking.full_name }} ({{ booking.phone }})</td>
+        </tr>
+        <tr style="border-bottom:1px solid #f1ece1;">
+          <td style="padding:10px 0;color:#64748b;">Travelers &amp; Mode:</td>
+          <td style="padding:10px 0;text-align:right;">{{ booking.travelers }} Traveler(s) · {{ booking.travel_mode }}</td>
+        </tr>
+        <tr style="border-bottom:2px solid #0c2340;">
+          <td style="padding:12px 0;font-size:15px;font-weight:700;color:#0c2340;">Total Amount:</td>
+          <td style="padding:12px 0;text-align:right;font-size:18px;font-weight:800;color:#16a34a;">₹{{ booking.total_amount|default:booking.package_price|floatformat:2 }}</td>
+        </tr>
+      </table>
+
+      <!-- Razorpay Trust Banner -->
+      <div class="razorpay-trust-banner" style="margin:20px 0;">
+        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+        <div>
+          <span>Razorpay 256-Bit SSL Secured Checkout</span><br>
+          <small style="font-weight:normal;color:#444">Accepts UPI (GPay, PhonePe, Paytm), Cards, NetBanking &amp; Wallets</small>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px;">
+        <button id="payNowBtn" class="razorpay-pay-btn" style="max-width:320px;" onclick="startRetryCheckout({{ booking.id }})">
+          <span>Pay ₹{{ booking.total_amount|default:booking.package_price|floatformat:0 }} via Razorpay →</span>
+        </button>
+      </div>
+      <p id="retryStatusText" style="font-size:13px;margin-top:14px;color:#b48738;"></p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-brand">
+      <a class="logo footer-logo" href="/index.html">
+        <img src="/static/images/logo-icon.svg" class="logo-emblem" alt="Delux">
+        <span>DELUX</span>
+        <small>TOUR & TRAVEL</small>
+      </a>
+      <p>Premium travel experiences for curious people.</p>
+    </div>
+    <div><h4>Explore</h4><a href="/about.html">About</a><a href="/packages.html">Packages</a></div>
+    <div><h4>Support</h4><a href="/contact.html">Contact</a><a href="/plan.html">Plan Trip</a></div>
+    <div class="copyright">© Delux Tour &amp; Travel. All rights reserved.</div>
+  </footer>
+
+  <script>
+    async function startRetryCheckout(bookingId) {
+      const btn = document.getElementById('payNowBtn');
+      const status = document.getElementById('retryStatusText');
+      btn.disabled = true;
+      status.textContent = '🔒 Connecting to Razorpay checkout...';
+
+      try {
+        const res = await fetch(`/api/payment/retry/${bookingId}/`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'same-origin'
+        });
+        const data = await res.json();
+        if (!data.ok) {
+          status.textContent = data.message || 'Unable to start checkout. Please try again.';
+          status.style.color = '#dc2626';
+          btn.disabled = false;
+          return;
+        }
+
+        const options = {
+          key: data.keyId,
+          amount: data.amountPaise,
+          currency: data.currency || 'INR',
+          name: 'Delux Tour & Travel',
+          description: `Booking #${data.bookingReference}: ${data.packageTitle}`,
+          image: '/static/images/logo-icon.svg',
+          order_id: data.orderId,
+          prefill: {
+            name: data.fullName,
+            email: data.email,
+            contact: data.phone
+          },
+          theme: { color: '#0c2340' },
+          config: {
+            display: {
+              preferences: {
+                show_default_blocks: true
+              }
+            }
+          },
+          handler: async function (response) {
+            status.textContent = 'Verifying payment with server...';
+            status.style.color = '#16a34a';
+            const vRes = await fetch('/api/razorpay/verify-payment/', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              credentials: 'same-origin',
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+                bookingId: data.bookingId
+              })
+            });
+            const vData = await vRes.json();
+            if (vData.ok) {
+              location.href = vData.redirectUrl || `/payment/success/${data.bookingId}/`;
+            } else {
+              status.textContent = vData.message || 'Payment verification failed.';
+              status.style.color = '#dc2626';
+              btn.disabled = false;
+            }
+          },
+          modal: {
+            ondismiss: function () {
+              status.textContent = 'Payment cancelled or dismissed. Click above to retry.';
+              status.style.color = '#b48738';
+              btn.disabled = false;
+            }
+          }
+        };
+
+        const rzp = new Razorpay(options);
+        rzp.open();
+      } catch (err) {
+        status.textContent = 'Network error. Please try again.';
+        status.style.color = '#dc2626';
+        btn.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <linearGradient id="goldLinear" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FCE6A4"/>
+      <stop offset="35%" stop-color="#D4AF37"/>
+      <stop offset="70%" stop-color="#AA7C1E"/>
+      <stop offset="100%" stop-color="#694B0A"/>
+    </linearGradient>
+    <linearGradient id="goldLight" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#AA7C1E"/>
+      <stop offset="50%" stop-color="#F9DF92"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <radialGradient id="goldGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#D4AF37" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#17201D" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Ambient Glow -->
+  <circle cx="50" cy="50" r="46" fill="url(#goldGlow)" />
+
+  <!-- Outer Luxury Crest Ring -->
+  <circle cx="50" cy="50" r="44" fill="#17201D" stroke="url(#goldLinear)" stroke-width="2.5" filter="url(#shadow)"/>
+  <circle cx="50" cy="50" r="40" fill="none" stroke="url(#goldLight)" stroke-width="0.8" stroke-dasharray="2 2" opacity="0.85"/>
+
+  <!-- Orbital Travel Latitudes -->
+  <ellipse cx="50" cy="50" rx="36" ry="14" fill="none" stroke="url(#goldLight)" stroke-width="1" transform="rotate(-25 50 50)" opacity="0.6"/>
+  
+  <!-- Sweeping Flight Trajectory Arc -->
+  <path d="M 18 58 Q 50 20 82 42" fill="none" stroke="url(#goldLinear)" stroke-width="1.8" stroke-linecap="round" opacity="0.9"/>
+  <!-- Airplane Silhouette at tip -->
+  <path d="M 82 42 L 86 40 L 83 45 L 85 46 L 80 47 Z" fill="url(#goldLight)"/>
+
+  <!-- Compass Star - 8 Points with 3D Light/Shadow Facets -->
+  <!-- North Point -->
+  <polygon points="50,14 50,50 43,45" fill="url(#goldLight)"/>
+  <polygon points="50,14 50,50 57,45" fill="url(#goldLinear)"/>
+
+  <!-- South Point -->
+  <polygon points="50,86 50,50 57,55" fill="url(#goldLight)"/>
+  <polygon points="50,86 50,50 43,55" fill="url(#goldLinear)"/>
+
+  <!-- East Point -->
+  <polygon points="86,50 50,50 55,43" fill="url(#goldLight)"/>
+  <polygon points="86,50 50,50 55,57" fill="url(#goldLinear)"/>
+
+  <!-- West Point -->
+  <polygon points="14,50 50,50 45,57" fill="url(#goldLight)"/>
+  <polygon points="14,50 50,50 45,43" fill="url(#goldLinear)"/>
+
+  <!-- Minor Points: NE, NW, SE, SW -->
+  <polygon points="74,26 50,50 53,42" fill="url(#goldLight)" opacity="0.9"/>
+  <polygon points="74,26 50,50 60,47" fill="url(#goldLinear)" opacity="0.9"/>
+
+  <polygon points="26,26 50,50 40,47" fill="url(#goldLight)" opacity="0.9"/>
+  <polygon points="26,26 50,50 47,40" fill="url(#goldLinear)" opacity="0.9"/>
+
+  <polygon points="74,74 50,50 60,53" fill="url(#goldLight)" opacity="0.9"/>
+  <polygon points="74,74 50,50 53,58" fill="url(#goldLinear)" opacity="0.9"/>
+
+  <polygon points="26,74 50,50 47,60" fill="url(#goldLight)" opacity="0.9"/>
+  <polygon points="26,74 50,50 40,53" fill="url(#goldLinear)" opacity="0.9"/>
+
+  <!-- Center Diamond Star Core -->
+  <circle cx="50" cy="50" r="6" fill="#17201D" stroke="url(#goldLinear)" stroke-width="1.5"/>
+  <polygon points="50,46 54,50 50,54 46,50" fill="url(#goldLight)"/>
+  <circle cx="50" cy="50" r="1.5" fill="#FFFFFF"/>
+</svg>

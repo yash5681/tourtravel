@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UPI Payment #{{ booking_reference }} | Delux Tour &amp; Travel</title>
+  <link rel="icon" type="image/svg+xml" href="/static/images/favicon.svg">
+  <link rel="alternate icon" href="/static/images/favicon.svg">
+  <link rel="stylesheet" href="/static/style.css?v=7">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    .upi-page-container {
+      max-width: 760px;
+      margin: 35px auto 60px;
+      padding: 0 18px;
+    }
+    .upi-card {
+      background: #ffffff;
+      border: 1px solid #e7e2d6;
+      border-radius: 14px;
+      box-shadow: 0 12px 45px rgba(0, 0, 0, 0.06);
+      overflow: hidden;
+    }
+    .upi-card-header {
+      background: #0c2340;
+      color: #ffffff;
+      padding: 24px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .upi-card-header h2 {
+      font: 700 22px 'Playfair Display', Georgia, serif;
+      color: #fce6a4;
+      margin: 0;
+    }
+    .upi-card-header p {
+      font-size: 12px;
+      color: #94a3b8;
+      margin: 4px 0 0;
+    }
+    .upi-badge-pill {
+      background: #16a34a;
+      color: #ffffff;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .upi-body {
+      padding: 28px;
+    }
+    .upi-order-summary {
+      background: #fbfaf7;
+      border: 1px solid #eee8dc;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px 20px;
+      font-size: 13.5px;
+    }
+    .summary-item small {
+      display: block;
+      color: #64748b;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .summary-item strong {
+      color: #0c2340;
+      font-size: 14px;
+    }
+    .upi-qr-section {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 20px 0;
+      border-bottom: 1px solid #f1ece1;
+      margin-bottom: 24px;
+    }
+    .qr-frame {
+      background: #ffffff;
+      padding: 14px;
+      border-radius: 16px;
+      border: 2px dashed #0284c7;
+      box-shadow: 0 8px 24px rgba(2, 132, 199, 0.12);
+      text-align: center;
+      position: relative;
+    }
+    .qr-frame img {
+      width: 220px;
+      height: 220px;
+      display: block;
+      border-radius: 8px;
+    }
+    .upi-details-col {
+      flex: 1;
+      min-width: 260px;
+    }
+    .upi-id-box {
+      background: #f0fdf4;
+      border: 1.5px solid #86efac;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .upi-id-box code {
+      font-size: 16px;
+      font-weight: 700;
+      color: #166534;
+      font-family: monospace;
+      letter-spacing: 0.5px;
+    }
+    .copy-btn {
+      background: #166534;
+      color: #ffffff;
+      border: 0;
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .2s;
+    }
+    .copy-btn:hover {
+      background: #15803d;
+    }
+    .app-badges-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .app-chip {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 11px;
+      color: #334155;
+      font-weight: 600;
+    }
+    .open-upi-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      color: #ffffff !important;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 12px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      width: 100%;
+      margin-top: 14px;
+      box-shadow: 0 4px 15px rgba(2, 132, 199, 0.25);
+      transition: .2s;
+    }
+    .open-upi-btn:hover {
+      background: linear-gradient(135deg, #0369a1 0%, #075985 100%);
+      transform: translateY(-1px);
+    }
+    .instructions-box {
+      background: #faf8f5;
+      border-left: 4px solid #b48738;
+      border-radius: 4px;
+      padding: 14px 18px;
+      font-size: 13px;
+      color: #475569;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+    .instructions-box ol {
+      margin: 8px 0 0 18px;
+      padding: 0;
+    }
+    .utr-form-card {
+      background: #ffffff;
+      border: 1.5px solid #0c2340;
+      border-radius: 10px;
+      padding: 22px;
+      margin-top: 10px;
+    }
+    .utr-form-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0c2340;
+      margin-bottom: 6px;
+    }
+    .utr-form-card p {
+      font-size: 12.5px;
+      color: #64748b;
+      margin-bottom: 16px;
+    }
+    .utr-input-group {
+      margin-bottom: 14px;
+    }
+    .utr-input-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .utr-input-group input, .utr-input-group textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: inherit;
+      box-sizing: border-box;
+      transition: .2s;
+    }
+    .utr-input-group input:focus, .utr-input-group textarea:focus {
+      border-color: #0284c7;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+    }
+    .submit-utr-btn {
+      background: #16a34a;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 14px 24px;
+      border: 0;
+      border-radius: 6px;
+      width: 100%;
+      cursor: pointer;
+      transition: .2s;
+    }
+    .submit-utr-btn:hover {
+      background: #15803d;
+    }
+    .submit-utr-btn:disabled {
+      background: #94a3b8;
+      cursor: not-allowed;
+    }
+    .status-alert {
+      padding: 16px 20px;
+      border-radius: 10px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .status-alert.pending-verification {
+      background: #eff6ff;
+      border: 1.5px solid #3b82f6;
+      color: #1e40af;
+    }
+    .status-alert.rejected {
+      background: #fef2f2;
+      border: 1.5px solid #ef4444;
+      color: #991b1b;
+    }
+
+    /* Floating College Presentation Demo Button (Bottom Corner) */
+    .college-demo-float-container {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+    .college-demo-float-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #0c2340 0%, #1e3a5f 100%);
+      color: #fce6a4;
+      border: 1.5px solid #b48738;
+      border-radius: 50px;
+      padding: 12px 20px;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(12, 35, 64, 0.45);
+      font-family: inherit;
+      text-align: left;
+      transition: all .25s ease;
+      text-decoration: none;
+    }
+    .college-demo-float-btn:hover {
+      background: linear-gradient(135deg, #1e3a5f 0%, #0c2340 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 35px rgba(180, 135, 56, 0.35);
+      border-color: #fce6a4;
+    }
+    .college-demo-float-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .demo-cap-icon {
+      font-size: 24px;
+      line-height: 1;
+    }
+    .demo-txt-col strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fce6a4;
+      letter-spacing: 0.3px;
+    }
+    .demo-txt-col small {
+      display: block;
+      font-size: 11px;
+      color: #cbd5e1;
+      margin-top: 1px;
+    }
+    .demo-pulse-glow {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+      animation: demoGlow 2s infinite;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+    @keyframes demoGlow {
+      0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+    }
+  </style>
+</head>
+<body style="background:#fcfbf9;">
+  <header class="header">
+    <a class="logo" href="/index.html">
+      <img src="/static/images/logo-icon.svg" class="logo-emblem" alt="Delux Tour &amp; Travel">
+      <span>DELUX</span>
+      <small>TOUR &amp; TRAVEL</small>
+    </a>
+    <button class="menu-btn" id="menuBtn">☰</button>
+    <nav id="nav">
+      <a href="/index.html">Home</a>
+      <a href="/about.html">About</a>
+      <a class="active" href="/packages.html">Packages</a>
+      <a href="/plan.html">Plan Trip</a>
+      <a href="/gallery.html">Gallery</a>
+      <a href="/contact.html">Contact</a>
+      <a class="nav-login" href="/profile.html">My Profile</a>
+    </nav>
+  </header>
+
+  <main class="upi-page-container">
+    <div class="upi-card">
+      <div class="upi-card-header">
+        <div>
+          <h2>Direct UPI Payment</h2>
+          <p>Instant Zero-Fee Transfer via Google Pay, PhonePe, Paytm, BHIM</p>
+        </div>
+        <span class="upi-badge-pill">🔒 SECURE UPI PAY</span>
+      </div>
+
+      <div class="upi-body">
+        <!-- Order & Package Summary -->
+        <div class="upi-order-summary">
+          <div class="summary-grid">
+            <div class="summary-item">
+              <small>Booking Reference</small>
+              <strong style="font-family:monospace;letter-spacing:0.5px;">{{ booking_reference }}</strong>
+            </div>
+            <div class="summary-item">
+              <small>Tour Package</small>
+              <strong>{{ booking.package_title }}</strong>
+            </div>
+            <div class="summary-item">
+              <small>Traveler Details</small>
+              <strong>{{ booking.full_name }} ({{ booking.travelers }} Traveler{{ booking.travelers|pluralize }})</strong>
+            </div>
+            <div class="summary-item">
+              <small>Total Amount Payable</small>
+              <strong style="color:#b48738;font-size:18px;">₹{{ amount|floatformat:2 }} INR</strong>
+            </div>
+          </div>
+        </div>
+
+        {% if booking.payment_status == 'PENDING_VERIFICATION' %}
+        <!-- Pending Verification State -->
+        <div class="status-alert pending-verification" id="statusPendingBox">
+          <span style="font-size:32px;">⏱</span>
+          <div>
+            <strong style="font-size:15px;display:block;margin-bottom:2px;">Payment Submitted — Awaiting Verification</strong>
+            <span style="font-size:13px;line-height:1.4;display:block;">
+              Your UPI Reference Number <strong><code style="background:#dbeafe;padding:2px 6px;border-radius:4px;">{{ booking.utr_number }}</code></strong> has been submitted.
+              Our accounts team is cross-checking this UTR against our bank records. Once verified, your booking will be confirmed and the official Tax Invoice will be emailed to <strong>{{ booking.email }}</strong>.
+            </span>
+          </div>
+        </div>
+        <div style="text-align:center;margin-bottom:24px;">
+          <button class="btn outline small" onclick="checkUpiBookingStatus({{ booking.id }})">🔄 Check Verification Status</button>
+          <a href="/profile.html" class="btn outline small" style="margin-left:8px;">View My Bookings</a>
+        </div>
+        {% elif booking.payment_status == 'REJECTED' %}
+        <!-- Rejected State -->
+        <div class="status-alert rejected">
+          <span style="font-size:32px;">✕</span>
+          <div>
+            <strong style="font-size:15px;display:block;margin-bottom:2px;">Payment Verification Rejected</strong>
+            <span style="font-size:13px;line-height:1.4;display:block;">
+              {{ booking.rejection_reason|default:"The submitted UTR number could not be matched with bank statements." }}
+              Please check your payment app and submit the correct 12-digit UTR below.
+            </span>
+          </div>
+        </div>
+        {% endif %}
+
+        <!-- UPI QR Code & Payee Details -->
+        <div class="upi-qr-section">
+          <div class="qr-frame">
+            <img src="{{ qr_url }}" alt="Scan UPI QR Code to Pay" id="upiDynamicQr" />
+            <small style="display:block;margin-top:8px;color:#0284c7;font-weight:700;">Scan with Any UPI App</small>
+          </div>
+
+          <div class="upi-details-col">
+            <small style="color:#64748b;text-transform:uppercase;font-size:11px;font-weight:700;">Payee UPI ID (VPA)</small>
+            <div class="upi-id-box">
+              <code id="upiIdText">{{ upi_id }}</code>
+              <button class="copy-btn" type="button" onclick="copyUpiId()">📋 Copy</button>
+            </div>
+
+            <p style="font-size:12.5px;color:#475569;margin-bottom:6px;">
+              <strong>Payee Name:</strong> {{ payee_name }}
+            </p>
+            <p style="font-size:12.5px;color:#475569;margin-bottom:12px;">
+              <strong>Exact Amount:</strong> <span style="color:#16a34a;font-weight:800;font-size:15px;">₹{{ amount|floatformat:2 }}</span>
+            </p>
+
+            <a href="{{ upi_link }}" class="open-upi-btn" id="openUpiAppBtn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V7h2v5z"/></svg>
+              <span>📱 Open in UPI App (Mobile Only)</span>
+            </a>
+
+            <div class="app-badges-row">
+              <span class="app-chip">Google Pay</span>
+              <span class="app-chip">PhonePe</span>
+              <span class="app-chip">Paytm</span>
+              <span class="app-chip">BHIM</span>
+              <span class="app-chip">Cred</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Instructions Box -->
+        <div class="instructions-box">
+          <strong>✦ Payment Steps:</strong>
+          <ol>
+            <li>Open any UPI app on your phone (Google Pay, PhonePe, Paytm, or BHIM).</li>
+            <li>Scan the QR code above or pay directly to UPI ID <code>{{ upi_id }}</code>.</li>
+            <li>Confirm the amount: <strong>₹{{ amount|floatformat:2 }}</strong>.</li>
+            <li>After successful transfer, locate the <strong>12-digit UPI Reference / UTR Number</strong> in your transaction receipt.</li>
+            <li>Enter the UTR number in the form below and click <strong>Submit UTR for Verification</strong>.</li>
+          </ol>
+        </div>
+
+        <!-- UTR Submission Form -->
+        <div class="utr-form-card" id="utrFormCard">
+          <h3>Submit Transaction Reference (UTR)</h3>
+          <p>Enter the 12-digit transaction ID or UTR number from your payment receipt so our accounts team can confirm your booking.</p>
+
+          <form id="upiUtrSubmitForm">
+            <input type="hidden" name="bookingId" value="{{ booking.id }}">
+            <div class="utr-input-group">
+              <label>12-Digit UPI Reference / UTR Number *</label>
+              <input type="text" name="utrNumber" id="utrInputField" required placeholder="e.g. 428412345678 or 202610110001" value="{{ booking.utr_number }}">
+            </div>
+            <div class="utr-input-group">
+              <label>Payer Name / Optional Remarks</label>
+              <input type="text" name="notes" placeholder="Account holder name or payment note">
+            </div>
+
+            <button type="submit" class="submit-utr-btn" id="submitUtrBtn">
+              <span>Submit UTR for Verification →</span>
+            </button>
+            <p id="utrSubmitStatus" style="font-size:13px;margin-top:12px;text-align:center;font-weight:600;"></p>
+          </form>
+
+          <!-- College Presentation Helper inside Card -->
+          <div style="margin-top:20px;padding:14px 18px;background:#f8fafc;border:1.5px dashed #b48738;border-radius:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+            <div style="font-size:12.5px;color:#334155;max-width:440px;">
+              <strong style="color:#0c2340;font-size:13.5px;"><span class="demo-pulse-glow"></span> College Presentation / Study Demo Mode:</strong>
+              <span style="display:block;margin-top:2px;color:#64748b;line-height:1.4;">
+                To demonstrate the post-payment automated Tax Invoice email for college professors/examiners without actual banking app deduction, click the presentation demo button below.
+              </span>
+            </div>
+            <button type="button" onclick="runCollegePresentationDemo({{ booking.id }})" style="background:#0c2340;color:#fce6a4;border:1.5px solid #b48738;border-radius:8px;padding:10px 16px;font-size:12px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:8px;">
+              <span>🎓 Instant Demo: Verify &amp; Send Invoice Mail →</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Floating College Presentation Demo Button (Bottom-Left Corner) -->
+  <div class="college-demo-float-container" id="collegeDemoFloat">
+    <button type="button" class="college-demo-float-btn" id="collegeDemoBtn" onclick="runCollegePresentationDemo({{ booking.id }})" title="Click during college presentation to show automated Tax Invoice email dispatch">
+      <span class="demo-cap-icon">🎓</span>
+      <div class="demo-txt-col">
+        <strong><span class="demo-pulse-glow"></span> College Presentation Demo</strong>
+        <small>Simulate Payment &amp; Send Invoice Email →</small>
+      </div>
+    </button>
+  </div>
+
+  <footer>
+    <div class="footer-brand">
+      <a class="logo footer-logo" href="/index.html">
+        <img src="/static/images/logo-icon.svg" class="logo-emblem" alt="Delux">
+        <span>DELUX</span>
+        <small>TOUR &amp; TRAVEL</small>
+      </a>
+      <p>Premium travel experiences for curious people.</p>
+    </div>
+    <div><h4>Explore</h4><a href="/about.html">About</a><a href="/packages.html">Packages</a></div>
+    <div><h4>Support</h4><a href="/contact.html">Contact</a><a href="/plan.html">Plan Trip</a></div>
+    <div class="copyright">© Delux Tour &amp; Travel. All rights reserved.</div>
+  </footer>
+
+  <script>
+    function copyUpiId() {
+      const upiText = document.getElementById('upiIdText').innerText;
+      navigator.clipboard.writeText(upiText).then(() => {
+        alert('UPI ID copied to clipboard: ' + upiText);
+      }).catch(() => {
+        prompt('Copy your UPI ID below:', upiText);
+      });
+    }
+
+    const utrForm = document.getElementById('upiUtrSubmitForm');
+    if (utrForm) {
+      utrForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('submitUtrBtn');
+        const status = document.getElementById('utrSubmitStatus');
+        const utrVal = document.getElementById('utrInputField').value.trim();
+        const notesVal = utrForm.querySelector('[name="notes"]').value.trim();
+        const bookingId = utrForm.querySelector('[name="bookingId"]').value;
+
+        if (!utrVal) {
+          status.textContent = 'Please enter your UPI UTR Number.';
+          status.style.color = '#dc2626';
+          return;
+        }
+
+        btn.disabled = true;
+        btn.innerText = 'Submitting for verification...';
+        status.textContent = '';
+
+        try {
+          const res = await fetch('/api/upi/submit-utr', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'same-origin',
+            body: JSON.stringify({
+              bookingId: Number(bookingId),
+              utrNumber: utrVal,
+              notes: notesVal
+            })
+          });
+          const data = await res.json();
+          if (data.ok) {
+            status.textContent = '✓ ' + data.message;
+            status.style.color = '#16a34a';
+            setTimeout(() => {
+              location.reload();
+            }, 1000);
+          } else {
+            status.textContent = data.message || 'Submission failed. Please check the UTR.';
+            status.style.color = '#dc2626';
+            btn.disabled = false;
+            btn.innerText = 'Submit UTR for Verification →';
+          }
+        } catch (err) {
+          status.textContent = 'Network error while submitting UTR.';
+          status.style.color = '#dc2626';
+          btn.disabled = false;
+          btn.innerText = 'Submit UTR for Verification →';
+        }
+      });
+    }
+
+    async function checkUpiBookingStatus(bookingId) {
+      try {
+        const res = await fetch(`/api/payment/status/${bookingId}/`, { credentials: 'same-origin' });
+        const data = await res.json();
+        if (data.paymentStatus === 'PAID' || data.status === 'CONFIRMED' || data.paymentStatus === 'Paid' || data.status === 'Confirmed') {
+          alert('🎉 Payment verified and booking confirmed! Opening tax invoice receipt...');
+          location.href = `/payment/success/${bookingId}/`;
+        } else if (data.paymentStatus === 'REJECTED') {
+          alert('Payment verification was rejected. Please re-enter a valid UTR.');
+          location.reload();
+        } else {
+          alert('Current Status: ' + (data.paymentStatus || 'Pending Verification') + '. Accounts team has not yet completed verification.');
+        }
+      } catch (err) {
+        alert('Could not fetch status at this moment.');
+      }
+    }
+
+    async function runCollegePresentationDemo(bookingId) {
+      if (!confirm('🎓 College Presentation Demo Mode:\n\nSimulate successful payment verification and instantly send the official GST Tax Invoice email to {{ booking.email }}?')) {
+        return;
+      }
+
+      const floatBtn = document.getElementById('collegeDemoBtn');
+      if (floatBtn) {
+        floatBtn.disabled = true;
+        floatBtn.innerHTML = '<span class="demo-cap-icon">⏳</span><div class="demo-txt-col"><strong>Simulating Payment...</strong><small>Dispatching Tax Invoice Email...</small></div>';
+      }
+
+      try {
+        const res = await fetch(`/api/upi/demo-verify/${bookingId}/`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'same-origin'
+        });
+        const data = await res.json();
+        if (data.ok) {
+          alert(`🎉 Presentation Demo Successful!\n\n✓ Payment verified & booking confirmed.\n✓ Official GST Tax Invoice dispatched to {{ booking.email }}.\n\nOpening Tax Invoice receipt now...`);
+          location.href = data.redirectUrl || `/payment/success/${bookingId}/`;
+        } else {
+          alert(data.message || 'Demo simulation failed.');
+          if (floatBtn) {
+            floatBtn.disabled = false;
+            floatBtn.innerHTML = '<span class="demo-cap-icon">🎓</span><div class="demo-txt-col"><strong><span class="demo-pulse-glow"></span> College Presentation Demo</strong><small>Simulate Payment &amp; Send Invoice Email →</small></div>';
+          }
+        }
+      } catch (err) {
+        alert('Network error while running presentation demo.');
+        if (floatBtn) {
+          floatBtn.disabled = false;
+          floatBtn.innerHTML = '<span class="demo-cap-icon">🎓</span><div class="demo-txt-col"><strong><span class="demo-pulse-glow"></span> College Presentation Demo</strong><small>Simulate Payment &amp; Send Invoice Email →</small></div>';
+        }
+      }
+    }
+  </script>
+</body>
+</html>

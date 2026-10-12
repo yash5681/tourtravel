@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Delux Tour & Travel</title>
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="alternate icon" href="images/favicon.svg">
+  <link rel="stylesheet" href="style.css?v=4">
+  <style>
+    #addPackageModal:not(.open) { display: none !important; }
+    #addPackageModal.open { display: flex !important; }
+  </style>
+</head>
+<body class="admin-body">
+<div class="admin-shell">
+  <aside class="admin-sidebar">
+    <a class="logo" href="index.html"><img src="images/logo-icon.svg" class="logo-emblem" alt="Delux"> DELUX <small>ADMIN</small></a>
+    <nav class="admin-nav">
+      <button class="admin-nav-btn active" data-tab="overview">Overview</button>
+      <button class="admin-nav-btn" data-tab="bookings">Package Bookings</button>
+      <button class="admin-nav-btn" data-tab="packages">Manage Packages</button>
+      <button class="admin-nav-btn" data-tab="plans">Trip Plan Requests</button>
+      <button class="admin-nav-btn" data-tab="contacts">Contact Messages</button>
+      <button class="admin-nav-btn" data-tab="users">Registered Users</button>
+    </nav>
+    <div style="margin-top:auto;display:flex;flex-direction:column;gap:8px">
+      <a href="/" target="_blank" class="btn small outline" style="font-size:11px;color:#fff;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2)">View Website ↗</a>
+      <a href="/django-admin/" target="_blank" class="btn small outline" style="font-size:11px;color:#fff;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2)">Django SuperAdmin ↗</a>
+      <button class="btn small danger" id="adminLogoutBtn">Logout</button>
+    </div>
+  </aside>
+
+  <main class="admin-main">
+    <div class="admin-topbar">
+      <div>
+        <p class="eyebrow">ADMIN PANEL</p>
+        <h2 id="adminSectionTitle">Overview</h2>
+      </div>
+      <div class="admin-topbar-actions">
+        <span id="adminEmailTag" class="admin-email-tag"></span>
+      </div>
+    </div>
+
+    <!-- Overview Tab -->
+    <section class="admin-tab" id="tab-overview">
+      <div class="admin-cards" id="summaryCards"><p>Loading summary…</p></div>
+      <div style="margin-top:35px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+          <h3 style="font:700 20px 'Playfair Display',serif">Recent Bookings</h3>
+          <button class="btn small outline" onclick="document.querySelector('.admin-nav-btn[data-tab=\'bookings\']').click()">View All Bookings →</button>
+        </div>
+        <div class="table-wrap">
+          <table class="admin-table">
+            <thead><tr><th>Date</th><th>Package</th><th>Traveler</th><th>Mode</th><th>Status</th></tr></thead>
+            <tbody id="overviewRecentBookings"><tr><td colspan="5">Loading recent bookings...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Bookings Tab -->
+    <section class="admin-tab" id="tab-bookings" style="display:none">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <input type="text" id="adminBookingSearch" placeholder="🔍 Search traveler, email, phone, UTR..." style="width:240px;margin-top:0;padding:8px 12px;font-size:12px;border-radius:4px" />
+          <select id="adminBookingStatusFilter" style="width:190px;margin-top:0;padding:8px 12px;font-size:12px;border-radius:4px">
+            <option value="all">All Statuses</option>
+            <option value="PENDING_VERIFICATION">⏳ Awaiting UPI Verification</option>
+            <option value="Pending">Pending (Unpaid)</option>
+            <option value="Confirmed">Confirmed / Paid</option>
+            <option value="REJECTED">Rejected</option>
+            <option value="Cancelled">Cancelled</option>
+          </select>
+        </div>
+        <a href="/api/admin/export/bookings" class="btn small primary" style="text-decoration:none">📥 Export to Excel / CSV</a>
+      </div>
+
+      <div class="table-wrap">
+        <table class="admin-table">
+          <thead><tr><th>Date</th><th>Package</th><th>Traveler</th><th>Contact</th><th>Mode</th><th>Travelers</th><th>Travel Date</th><th>Payment / UTR</th><th>Status &amp; Verification</th></tr></thead>
+          <tbody id="bookingsBody"><tr><td colspan="9">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Packages Tab -->
+    <section class="admin-tab" id="tab-packages" style="display:none">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+        <p class="admin-hint" style="margin-bottom:0">Manage active tour packages. Add new packages or remove outdated tours directly from this dashboard.</p>
+        <button class="btn small primary" onclick="openAddPackageModal()">+ Add New Tour Package</button>
+      </div>
+      <div class="table-wrap">
+        <table class="admin-table">
+          <thead><tr><th>ID</th><th>Image</th><th>Title</th><th>Location</th><th>Duration</th><th>Price (₹)</th><th>Action</th></tr></thead>
+          <tbody id="adminPackagesBody"><tr><td colspan="7">Loading packages…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Trip Plans Tab -->
+    <section class="admin-tab" id="tab-plans" style="display:none">
+      <p class="admin-hint">Custom "Plan a Trip" requests submitted from the Plan Trip page.</p>
+      <div class="table-wrap">
+        <table class="admin-table">
+          <thead><tr><th>Date</th><th>Name</th><th>Contact</th><th>Destination</th><th>Mode</th><th>Travelers</th><th>Budget</th><th>Message</th></tr></thead>
+          <tbody id="plansBody"><tr><td colspan="8">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Contacts Tab -->
+    <section class="admin-tab" id="tab-contacts" style="display:none">
+      <p class="admin-hint">Messages sent from the Contact page (also emailed to the admin inbox).</p>
+      <div class="table-wrap">
+        <table class="admin-table">
+          <thead><tr><th>Date</th><th>Name</th><th>Contact</th><th>Subject</th><th>Message</th></tr></thead>
+          <tbody id="contactsBody"><tr><td colspan="5">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Registered Users Tab -->
+    <section class="admin-tab" id="tab-users" style="display:none">
+      <p class="admin-hint">Everyone who created a customer account on the site.</p>
+      <div class="table-wrap">
+        <table class="admin-table">
+          <thead><tr><th>Joined</th><th>Full Name</th><th>Email</th></tr></thead>
+          <tbody id="usersBody"><tr><td colspan="3">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- Modal: Add New Tour Package -->
+<div class="delux-modal" id="addPackageModal" style="display:none !important">
+  <div class="delux-modal-box" style="max-width:600px">
+
+    <button class="delux-modal-close" onclick="closeAddPackageModal()">&times;</button>
+    <h3 class="delux-modal-title" id="addPackageModalTitle" style="font-size:24px">Add New Tour Package</h3>
+    <form id="addPackageForm">
+      <input type="hidden" name="id" id="pkgIdField" value="">
+      <div class="form-row" style="margin-bottom:12px">
+        <label>Title *<input type="text" name="title" required placeholder="e.g. Goa Beach Bliss" /></label>
+        <label>Duration *<input type="text" name="duration" required placeholder="e.g. 4 DAYS · GOA" /></label>
+      </div>
+      <div class="form-row" style="margin-bottom:12px">
+        <label>Location *<input type="text" name="location" required placeholder="e.g. Goa, India" /></label>
+        <label>Price (₹ per person) *<input type="number" name="price" required placeholder="19999" /></label>
+      </div>
+      <label style="margin-bottom:12px">Image URL<input type="url" name="imageUrl" placeholder="https://images.unsplash.com/..." /></label>
+      <label style="margin-bottom:12px">Brief Description<textarea name="description" rows="2" placeholder="Sun-kissed beaches, water sports, and sunset cruises."></textarea></label>
+      <label style="margin-bottom:12px">Day-Wise Itinerary (One per line)<textarea name="itinerary" rows="3" placeholder="Day 1: Arrival in Goa&#10;Day 2: North Goa Sightseeing&#10;Day 3: Water Sports at Calangute&#10;Day 4: Departure"></textarea></label>
+      <label style="margin-bottom:16px">Inclusions (One per line)<textarea name="inclusions" rows="2" placeholder="4-Star Beach Resort&#10;Daily Breakfast&#10;Airport Transfers"></textarea></label>
+      <div style="display:flex;justify-content:flex-end;gap:10px">
+        <button type="button" class="btn outline" onclick="closeAddPackageModal()">Cancel</button>
+        <button type="submit" class="btn primary">Save Package</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="admin.js?v=3"></script>
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile | Delux Tour & Travel</title>
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="alternate icon" href="images/favicon.svg">
+  <link rel="stylesheet" href="style.css?v=4">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body style="background:#fafafa">
+<header class="header">
+  <a class="logo" href="index.html">
+    <img src="images/logo-icon.svg" class="logo-emblem" alt="Delux">
+    <span>DELUX</span>
+    <small>TOUR & TRAVEL</small>
+  </a>
+  <button class="menu-btn" id="menuBtn">☰</button>
+  <nav id="nav">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="packages.html">Packages</a>
+    <a href="plan.html">Plan Trip</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="contact.html">Contact</a>
+    <a class="active nav-login" href="profile.html" id="profileNavLink">My Profile</a>
+    <a class="nav-register" href="#" id="profileLogoutBtn">Logout</a>
+  </nav>
+</header>
+
+<main style="padding: 40px 5%; max-width: 960px; margin: 0 auto;">
+
+  <!-- Instagram Style Header -->
+  <section class="insta-profile-header">
+    <div class="insta-avatar-container">
+      <div class="insta-avatar-ring">
+        <img id="userAvatarImg" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="Profile Picture" class="insta-avatar">
+      </div>
+    </div>
+
+    <div class="insta-info-container">
+      <div class="insta-username-row">
+        <h2 id="userNameHandle" class="insta-handle">traveler_user</h2>
+        <span class="insta-verified" title="Verified Delux Explorer">✓</span>
+        <button class="insta-btn" id="editProfileBtn">Edit Profile</button>
+        <a href="packages.html" class="insta-btn primary">Explore Tours</a>
+      </div>
+
+      <div class="insta-stats-row">
+        <div class="insta-stat"><strong id="statBookings">0</strong> <span>bookings</span></div>
+        <div class="insta-stat"><strong id="statPlans">0</strong> <span>custom plans</span></div>
+        <div class="insta-stat"><strong id="statDestinations">0</strong> <span>destinations</span></div>
+      </div>
+
+      <div class="insta-bio-block">
+        <h3 id="userFullName" class="insta-fullname">Traveler Name</h3>
+        <p id="userBioText" class="insta-bio">Passionate traveler exploring the world ✈️</p>
+        <div class="insta-tags">
+          <span id="userCityTag" class="insta-pill">📍 India</span>
+          <span id="userJoinedTag" class="insta-pill">🗓 Member since 2026</span>
+          <span class="insta-pill gold">✦ VIP Delux Explorer</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Instagram Style Tab Navigation -->
+  <div class="insta-tabs">
+    <button class="insta-tab active" data-tab="bookings">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 9h18M9 21V9" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      <span>BOOKINGS</span>
+    </button>
+    <button class="insta-tab" data-tab="plans">
+      <svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6" fill="none" stroke="currentColor" stroke-width="2"/><line x1="8" y1="2" x2="8" y2="18" stroke="currentColor" stroke-width="2"/><line x1="16" y1="6" x2="16" y2="22" stroke="currentColor" stroke-width="2"/></svg>
+      <span>CUSTOM PLANS</span>
+    </button>
+    <button class="insta-tab" data-tab="settings">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      <span>EDIT SETTINGS</span>
+    </button>
+  </div>
+
+  <!-- Content: Bookings Grid -->
+  <section class="insta-tab-content" id="tabContentBookings">
+    <div class="insta-grid" id="profileBookingsGrid">
+      <p style="grid-column:1/-1;text-align:center;padding:40px;color:#777">Loading your journeys...</p>
+    </div>
+  </section>
+
+  <!-- Content: Custom Plans Grid -->
+  <section class="insta-tab-content" id="tabContentPlans" style="display:none">
+    <div class="insta-grid" id="profilePlansGrid">
+      <p style="grid-column:1/-1;text-align:center;padding:40px;color:#777">Loading your trip plans...</p>
+    </div>
+  </section>
+
+  <!-- Content: Edit Profile Settings -->
+  <section class="insta-tab-content" id="tabContentSettings" style="display:none">
+    <div class="insta-settings-card">
+      <h3 style="font:700 22px 'Playfair Display',serif;margin-bottom:20px;border-bottom:1px solid #eee;padding-bottom:12px">Edit Profile Details</h3>
+      <form id="editProfileForm">
+        <div class="form-row">
+          <label>Full Name *<input type="text" id="inputFullName" required /></label>
+          <label>Phone Number<input type="text" id="inputPhone" placeholder="+91 98765 43210" /></label>
+        </div>
+        <div class="form-row">
+          <label>City / Location<input type="text" id="inputCity" placeholder="e.g. Ahmedabad, India" /></label>
+          <label>Avatar Photo URL<input type="url" id="inputAvatarUrl" placeholder="https://images.unsplash.com/..." /></label>
+        </div>
+        <label>Travel Bio (Quotes, favorite destinations, travel style)<textarea id="inputBio" rows="3" placeholder="Tell travelers what drives your wanderlust..."></textarea></label>
+        <button type="submit" class="btn primary" style="margin-top:15px">Save Changes</button>
+        <p id="editStatusMsg" style="margin-top:10px;font-size:13px;font-weight:600"></p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-brand">
+    <a class="logo footer-logo" href="index.html">
+      <img src="images/logo-icon.svg" class="logo-emblem" alt="Delux">
+      <span>DELUX</span>
+      <small>TOUR & TRAVEL</small>
+    </a>
+    <p>Premium travel experiences for curious people.</p>
+  </div>
+  <div><h4>Explore</h4><a href="about.html">About</a><a href="packages.html">Packages</a><a href="gallery.html">Gallery</a></div>
+  <div><h4>Support</h4><a href="contact.html">Contact</a><a href="plan.html">Plan Trip</a><a href="login.html">Login</a></div>
+  <div class="footer-social"><h4>Follow</h4><a href="https://instagram.com/deluxtourtravel" target="_blank" rel="noopener">Instagram</a><a href="https://facebook.com/deluxtourtravel" target="_blank" rel="noopener">Facebook</a><a href="https://youtube.com/@deluxtourtravel" target="_blank" rel="noopener">YouTube</a></div>
+  <div class="copyright">© Yash Prajapati<a class="admin-link" href="admin-login.html">Admin</a></div>
+</footer>
+
+<!-- Interactive WhatsApp Concierge Chat Widget -->
+<div id="waWidgetContainer">
+  <a class="wa-widget-bubble" id="waToggleBtn" title="Chat with Delux Travel Concierge on WhatsApp" href="https://wa.me/919023433407?text=Hello%20Delux%20Tour%20%26%20Travel!%20I%20would%20like%20to%20inquire%20about%20your%20holiday%20packages." target="_blank" onclick="event.preventDefault(); window.toggleDeluxWhatsApp();">
+    <span class="wa-pulse-dot"></span>
+    <svg viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.4-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.38-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.17-.48-.29z"/></svg>
+    <span>WhatsApp Chat</span>
+  </a>
+  <div class="wa-chat-box" id="waChatBox">
+    <div class="wa-chat-header">
+      <div class="wa-chat-header-info">
+        <img src="images/logo-icon.svg" alt="Concierge" class="wa-avatar">
+        <div>
+          <h4>Delux Travel Concierge</h4>
+          <span><span style="display:inline-block;width:7px;height:7px;background:#25d366;border-radius:50%"></span> Online · Quick Replies</span>
+        </div>
+      </div>
+      <button class="wa-chat-close" id="waCloseBtn" onclick="window.closeDeluxWhatsApp()">&times;</button>
+    </div>
+    <div class="wa-chat-body">
+      <div class="wa-bubble">
+        Hello! 👋 Welcome to <strong>Delux Tour & Travel</strong>. Looking for an unforgettable holiday or custom itinerary? How can we help you today?
+      </div>
+      <div class="wa-chips">
+        <button class="wa-chip" data-msg="Hi! I want details & pricing for the Bali Island Escape package.">🌴 Bali Island Package quote</button>
+        <button class="wa-chip" data-msg="Hello! Can you help me plan a custom Switzerland & Europe trip?">🗺️ Custom European Trip Plan</button>
+        <button class="wa-chip" data-msg="Hi! I would like to know about Train vs Flight travel options for packages.">🚆 Train vs Flight booking options</button>
+        <button class="wa-chip" data-msg="Hello! What are your best upcoming seasonal offers and discounts?">🏷️ Today's Best Tour Deals</button>
+      </div>
+    </div>
+    <div class="wa-chat-footer">
+      <input type="text" id="waCustomInput" placeholder="Type your travel inquiry..." />
+      <button class="wa-chat-send" id="waSendBtn" title="Send to WhatsApp" onclick="window.sendWhatsAppCustom()">
+        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js?v=3"></script>
+<script src="app.js?v=3"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  // Check auth and load profile
+  try {
+    const res = await fetch('/api/profile');
+    if (!res.ok) {
+      location.href = 'login.html';
+      return;
+    }
+    const data = await res.json();
+    renderProfile(data);
+  } catch {
+    location.href = 'login.html';
+  }
+
+  // Logout button listener
+  document.getElementById('profileLogoutBtn').addEventListener('click', async (e) => {
+    e.preventDefault();
+    await fetch('/api/auth/logout', { method: 'POST', credentials: 'same-origin' });
+    location.href = 'index.html';
+  });
+
+  // Tab switching
+  document.querySelectorAll('.insta-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.insta-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const tab = btn.dataset.tab;
+      document.getElementById('tabContentBookings').style.display = tab === 'bookings' ? 'block' : 'none';
+      document.getElementById('tabContentPlans').style.display = tab === 'plans' ? 'block' : 'none';
+      document.getElementById('tabContentSettings').style.display = tab === 'settings' ? 'block' : 'none';
+    });
+  });
+
+  document.getElementById('editProfileBtn').addEventListener('click', () => {
+    document.querySelector('.insta-tab[data-tab="settings"]').click();
+  });
+
+  // Form submit for settings
+  document.getElementById('editProfileForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const msg = document.getElementById('editStatusMsg');
+    msg.textContent = 'Saving changes...';
+    msg.style.color = '#b48738';
+
+    const payload = {
+      fullName: document.getElementById('inputFullName').value,
+      phone: document.getElementById('inputPhone').value,
+      city: document.getElementById('inputCity').value,
+      avatarUrl: document.getElementById('inputAvatarUrl').value,
+      bio: document.getElementById('inputBio').value
+    };
+
+    const res = await fetch('/api/profile/update', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'same-origin',
+      body: JSON.stringify(payload)
+    });
+
+    const body = await res.json();
+    if (res.ok) {
+      msg.textContent = 'Profile updated successfully!';
+      msg.style.color = '#27ae60';
+      showToast('Profile updated!', 'success');
+      // reload details
+      document.getElementById('userFullName').textContent = body.fullName;
+      document.getElementById('userBioText').textContent = body.bio;
+      document.getElementById('userCityTag').textContent = '📍 ' + body.city;
+      if (body.avatarUrl) document.getElementById('userAvatarImg').src = body.avatarUrl;
+    } else {
+      msg.textContent = body.message || 'Failed to update profile.';
+      msg.style.color = '#c0392b';
+    }
+  });
+});
+
+function renderProfile(data) {
+  const username = data.email.split('@')[0];
+  document.getElementById('userNameHandle').textContent = username;
+  document.getElementById('userFullName').textContent = data.fullName;
+  document.getElementById('userBioText').textContent = data.bio;
+  document.getElementById('userCityTag').textContent = '📍 ' + data.city;
+  document.getElementById('userJoinedTag').textContent = '🗓 Member since ' + data.joined;
+  if (data.avatarUrl) document.getElementById('userAvatarImg').src = data.avatarUrl;
+
+  document.getElementById('statBookings').textContent = data.stats.bookingsCount;
+  document.getElementById('statPlans').textContent = data.stats.plansCount;
+  document.getElementById('statDestinations').textContent = data.stats.destinationsCount;
+
+  // Pre-fill edit form
+  document.getElementById('inputFullName').value = data.fullName;
+  document.getElementById('inputPhone').value = data.phone;
+  document.getElementById('inputCity').value = data.city;
+  document.getElementById('inputAvatarUrl').value = data.avatarUrl;
+  document.getElementById('inputBio').value = data.bio;
+
+  // Render Bookings grid
+  const bookingsGrid = document.getElementById('profileBookingsGrid');
+  if (!data.bookings.length) {
+    bookingsGrid.innerHTML = `
+      <div style="grid-column:1/-1;text-align:center;padding:50px 20px;background:#fff;border:1px solid #e6e0d5;border-radius:8px">
+        <span style="font-size:38px;display:block;margin-bottom:10px">✈️</span>
+        <h3 style="font:700 20px 'Playfair Display',serif;margin-bottom:8px">No Bookings Yet</h3>
+        <p style="color:#777;font-size:13px;margin-bottom:20px">When you book an escape with us, it will appear right here in your travel journal.</p>
+        <a class="btn primary" href="packages.html">Discover Packages</a>
+      </div>`;
+  } else {
+    bookingsGrid.innerHTML = data.bookings.map(b => {
+      const badgeClass = b.status === 'Confirmed' ? 'status-confirmed' : (b.status === 'Cancelled' ? 'status-cancelled' : 'status-pending');
+      return `
+        <article class="insta-card">
+          <div class="insta-card-media">
+            <img src="${b.imageUrl}" alt="${b.packageTitle}">
+            <span class="mode-pill mode-${b.travelMode.toLowerCase()}" style="position:absolute;top:12px;left:12px;box-shadow:0 4px 10px rgba(0,0,0,.15)">${b.travelMode}</span>
+            <span class="status-badge ${badgeClass}" style="position:absolute;bottom:12px;right:12px;box-shadow:0 4px 10px rgba(0,0,0,.15)">${b.status}</span>
+          </div>
+          <div class="insta-card-body">
+            <h4>${b.packageTitle}</h4>
+            <div style="margin:4px 0;display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+              <span style="font-size:10px;font-weight:700;color:#1e824c;background:#e8f8f0;padding:2px 8px;border-radius:10px">✓ Paid via Razorpay</span>
+              ${b.paymentId ? `<code style="font-size:10px;color:#777;font-family:monospace">${b.paymentId}</code>` : ''}
+            </div>
+            <p><strong>₹${Number(b.amountPaid || b.packagePrice).toLocaleString('en-IN')}</strong> · ${b.travelers} traveler(s)</p>
+            <small style="color:#777">Travel: ${b.travelDate ? new Date(b.travelDate).toLocaleDateString('en-IN', {day:'2-digit', month:'short', year:'numeric'}) : 'Date Flexible'}</small>
+          </div>
+        </article>
+      `;
+    }).join('');
+  }
+
+  // Render Plans grid
+  const plansGrid = document.getElementById('profilePlansGrid');
+  if (!data.plans.length) {
+    plansGrid.innerHTML = `
+      <div style="grid-column:1/-1;text-align:center;padding:50px 20px;background:#fff;border:1px solid #e6e0d5;border-radius:8px">
+        <span style="font-size:38px;display:block;margin-bottom:10px">🗺️</span>
+        <h3 style="font:700 20px 'Playfair Display',serif;margin-bottom:8px">No Custom Plans Yet</h3>
+        <p style="color:#777;font-size:13px;margin-bottom:20px">Have a specific dream trip in mind? Tell us what you want to experience.</p>
+        <a class="btn primary" href="plan.html">Plan a Trip</a>
+      </div>`;
+  } else {
+    plansGrid.innerHTML = data.plans.map(p => `
+      <article class="insta-card" style="padding:22px;background:#fff;border:1px solid #e6e0d5;border-radius:8px">
+        <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:10px">
+          <h4 style="font:700 20px 'Playfair Display',serif;margin:0">${p.destination}</h4>
+          <span class="mode-pill mode-${p.travelMode.toLowerCase()}">${p.travelMode}</span>
+        </div>
+        <p style="font-size:13px;color:#555;margin:6px 0"><strong>Budget:</strong> ${p.budget || 'Flexible'} · <strong>Travelers:</strong> ${p.travelers || 'Not specified'}</p>
+        <small style="color:#777">Requested: ${new Date(p.createdAt).toLocaleDateString('en-IN', {day:'2-digit', month:'short', year:'numeric'})}</small>
+      </article>
+    `).join('');
+  }
+}
+</script>
+</body>
+</html>

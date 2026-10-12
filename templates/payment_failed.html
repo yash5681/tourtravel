@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Incomplete | Delux Tour & Travel</title>
+  <link rel="icon" type="image/svg+xml" href="/static/images/favicon.svg">
+  <link rel="alternate icon" href="/static/images/favicon.svg">
+  <link rel="stylesheet" href="/static/style.css?v=6">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <!-- Razorpay Official Checkout SDK for instant retry -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body style="background:#fcfbf9">
+  <header class="header">
+    <a class="logo" href="/index.html">
+      <img src="/static/images/logo-icon.svg" class="logo-emblem" alt="Delux Tour & Travel">
+      <span>DELUX</span>
+      <small>TOUR & TRAVEL</small>
+    </a>
+    <button class="menu-btn" id="menuBtn">☰</button>
+    <nav id="nav">
+      <a href="/index.html">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/packages.html">Packages</a>
+      <a href="/plan.html">Plan Trip</a>
+      <a href="/gallery.html">Gallery</a>
+      <a href="/contact.html">Contact</a>
+      <a class="nav-login" href="/profile.html">My Profile</a>
+    </nav>
+  </header>
+
+  <main style="max-width: 680px; margin: 40px auto; padding: 0 20px;">
+    <div class="booking-receipt-card" style="box-shadow: 0 10px 40px rgba(0,0,0,0.06); border: 1px solid #fee2e2;">
+      <div class="receipt-success-icon" style="background:#ef4444;color:#fff;width:64px;height:64px;font-size:28px;display:flex;align-items:center;justify-content:center;border-radius:50%;margin:0 auto 16px;">✕</div>
+      <span class="receipt-badge" style="background:#fee2e2;color:#991b1b;font-weight:700;padding:4px 12px;border-radius:20px;font-size:12px;letter-spacing:1px;">PAYMENT NOT COMPLETED</span>
+      <h1 style="font-family:'Playfair Display',serif;font-size:26px;color:#0c2340;margin:12px 0 6px;">We couldn't process your payment.</h1>
+      <p style="color:#64748b;font-size:14px;margin-bottom:20px;">Your transaction was declined, cancelled, or timed out. Don't worry — your package selection is saved.</p>
+
+      {% if payment and payment.error_description %}
+      <div style="background:#fff1f2;border:1px solid #fecdd3;border-radius:8px;padding:12px 16px;margin-bottom:20px;text-align:left;font-size:13px;color:#9f1239;">
+        <strong>Gateway Message:</strong> {{ payment.error_description }}
+      </div>
+      {% endif %}
+
+      <table class="receipt-table" style="width:100%;border-collapse:collapse;margin:16px 0;text-align:left;font-size:13.5px;">
+        <tr style="border-bottom:1px solid #f1ece1;">
+          <td style="padding:10px 0;color:#64748b;">Booking Reference:</td>
+          <td style="padding:10px 0;text-align:right;"><code style="font-weight:bold;color:#0c2340;">{{ booking.booking_reference }}</code></td>
+        </tr>
+        <tr style="border-bottom:1px solid #f1ece1;">
+          <td style="padding:10px 0;color:#64748b;">Tour Package:</td>
+          <td style="padding:10px 0;text-align:right;"><strong>{{ booking.package_title }}</strong></td>
+        </tr>
+        <tr style="border-bottom:1px solid #f1ece1;">
+          <td style="padding:10px 0;color:#64748b;">Traveler Name:</td>
+          <td style="padding:10px 0;text-align:right;">{{ booking.full_name }}</td>
+        </tr>
+        <tr style="border-bottom:2px solid #0c2340;">
+          <td style="padding:12px 0;font-size:15px;font-weight:700;color:#0c2340;">Payable Amount:</td>
+          <td style="padding:12px 0;text-align:right;font-size:17px;font-weight:800;color:#0c2340;">₹{{ booking.total_amount|default:booking.package_price|floatformat:2 }}</td>
+        </tr>
+      </table>
+
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px;">
+        <button id="retryPaymentBtn" class="btn primary" style="padding:12px 24px;font-size:14px;" onclick="triggerPaymentRetry({{ booking.id }})">
+          ⚡ Retry Payment via Razorpay →
+        </button>
+        <a href="/packages.html" class="btn outline">Choose Another Package</a>
+      </div>
+      <p id="retryStatus" style="font-size:13px;margin-top:14px;color:#b48738;"></p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-brand">
+      <a class="logo footer-logo" href="/index.html">
+        <img src="/static/images/logo-icon.svg" class="logo-emblem" alt="Delux">
+        <span>DELUX</span>
+        <small>TOUR & TRAVEL</small>
+      </a>
+      <p>Premium travel experiences for curious people.</p>
+    </div>
+    <div><h4>Explore</h4><a href="/about.html">About</a><a href="/packages.html">Packages</a></div>
+    <div><h4>Support</h4><a href="/contact.html">Contact</a><a href="/plan.html">Plan Trip</a></div>
+    <div class="copyright">© Delux Tour &amp; Travel. All rights reserved.</div>
+  </footer>
+
+  <script>
+    async function triggerPaymentRetry(bookingId) {
+      const btn = document.getElementById('retryPaymentBtn');
+      const status = document.getElementById('retryStatus');
+      btn.disabled = true;
+      status.textContent = 'Generating fresh Razorpay checkout session...';
+
+      try {
+        const res = await fetch(`/api/payment/retry/${bookingId}/`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'same-origin'
+        });
+        const data = await res.json();
+        if (!data.ok) {
+          status.textContent = data.message || 'Could not initiate retry. Please try again.';
+          status.style.color = '#dc2626';
+          btn.disabled = false;
+          return;
+        }
+
+        const options = {
+          key: data.keyId,
+          amount: data.amountPaise,
+          currency: data.currency || 'INR',
+          name: 'Delux Tour & Travel',
+          description: `Booking #${data.bookingReference}: ${data.packageTitle}`,
+          image: '/static/images/logo-icon.svg',
+          order_id: data.orderId,
+          prefill: {
+            name: data.fullName,
+            email: data.email,
+            contact: data.phone
+          },
+          theme: { color: '#0c2340' },
+          config: {
+            display: {
+              preferences: {
+                show_default_blocks: true
+              }
+            }
+          },
+          handler: async function (response) {
+            status.textContent = 'Verifying payment with server...';
+            const vRes = await fetch('/api/razorpay/verify-payment/', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              credentials: 'same-origin',
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+                bookingId: data.bookingId
+              })
+            });
+            const vData = await vRes.json();
+            if (vData.ok) {
+              location.href = vData.redirectUrl || `/payment/success/${data.bookingId}/`;
+            } else {
+              status.textContent = vData.message || 'Verification failed.';
+              status.style.color = '#dc2626';
+              btn.disabled = false;
+            }
+          },
+          modal: {
+            ondismiss: function () {
+              status.textContent = 'Payment cancelled. You can retry anytime.';
+              btn.disabled = false;
+            }
+          }
+        };
+
+        const rzp = new Razorpay(options);
+        rzp.open();
+      } catch (err) {
+        status.textContent = 'Network error while attempting payment retry.';
+        status.style.color = '#dc2626';
+        btn.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>

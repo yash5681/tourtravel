@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 270 54" width="270" height="54">
+  <defs>
+    <linearGradient id="goldHLinearLight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF3C4"/>
+      <stop offset="35%" stop-color="#E2C158"/>
+      <stop offset="70%" stop-color="#C59933"/>
+      <stop offset="100%" stop-color="#916B19"/>
+    </linearGradient>
+    <linearGradient id="goldHLightLight" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C59933"/>
+      <stop offset="50%" stop-color="#FFE8A3"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="textWhiteGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E9ECE7"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Left Icon Emblem (scaled 0.48 at x=4, y=3) -->
+  <g transform="translate(4, 3) scale(0.48)">
+    <circle cx="50" cy="50" r="46" fill="#111816" stroke="url(#goldHLinearLight)" stroke-width="2.5"/>
+    <circle cx="50" cy="50" r="42" fill="none" stroke="url(#goldHLightLight)" stroke-width="0.8" stroke-dasharray="2 2" opacity="0.85"/>
+    <ellipse cx="50" cy="50" rx="36" ry="14" fill="none" stroke="url(#goldHLightLight)" stroke-width="1" transform="rotate(-25 50 50)" opacity="0.6"/>
+    <path d="M 18 58 Q 50 20 82 42" fill="none" stroke="url(#goldHLinearLight)" stroke-width="2" stroke-linecap="round" opacity="0.9"/>
+    <path d="M 82 42 L 86 40 L 83 45 L 85 46 L 80 47 Z" fill="url(#goldHLightLight)"/>
+    <polygon points="50,14 50,50 43,45" fill="url(#goldHLightLight)"/>
+    <polygon points="50,14 50,50 57,45" fill="url(#goldHLinearLight)"/>
+    <polygon points="50,86 50,50 57,55" fill="url(#goldHLightLight)"/>
+    <polygon points="50,86 50,50 43,55" fill="url(#goldHLinearLight)"/>
+    <polygon points="86,50 50,50 55,43" fill="url(#goldHLightLight)"/>
+    <polygon points="86,50 50,50 55,57" fill="url(#goldHLinearLight)"/>
+    <polygon points="14,50 50,50 45,57" fill="url(#goldHLightLight)"/>
+    <polygon points="14,50 50,50 45,43" fill="url(#goldHLinearLight)"/>
+    <polygon points="74,26 50,50 53,42" fill="url(#goldHLightLight)" opacity="0.9"/>
+    <polygon points="74,26 50,50 60,47" fill="url(#goldHLinearLight)" opacity="0.9"/>
+    <polygon points="26,26 50,50 40,47" fill="url(#goldHLightLight)" opacity="0.9"/>
+    <polygon points="26,26 50,50 47,40" fill="url(#goldHLinearLight)" opacity="0.9"/>
+    <polygon points="74,74 50,50 60,53" fill="url(#goldHLightLight)" opacity="0.9"/>
+    <polygon points="74,74 50,50 53,58" fill="url(#goldHLinearLight)" opacity="0.9"/>
+    <polygon points="26,74 50,50 47,60" fill="url(#goldHLightLight)" opacity="0.9"/>
+    <polygon points="26,74 50,50 40,53" fill="url(#goldHLinearLight)" opacity="0.9"/>
+    <circle cx="50" cy="50" r="6" fill="#111816" stroke="url(#goldHLinearLight)" stroke-width="1.5"/>
+    <polygon points="50,46 54,50 50,54 46,50" fill="url(#goldHLightLight)"/>
+    <circle cx="50" cy="50" r="1.5" fill="#FFFFFF"/>
+  </g>
+
+  <!-- Typography Right -->
+  <text x="62" y="31" font-family="'Playfair Display', Georgia, 'Times New Roman', serif" font-size="26" font-weight="800" letter-spacing="2.5" fill="url(#textWhiteGrad)">DELUX</text>
+  <path d="M 180 18 Q 183 23 188 23 Q 183 23 180 28 Q 177 23 172 23 Q 177 23 180 18 Z" fill="url(#goldHLinearLight)"/>
+  <text x="63" y="45" font-family="'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" letter-spacing="4.5" fill="#E2C158">TOUR &amp; TRAVEL</text>
+</svg>

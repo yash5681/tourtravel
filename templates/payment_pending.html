@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Pending | Delux Tour & Travel</title>
+  <link rel="icon" type="image/svg+xml" href="/static/images/favicon.svg">
+  <link rel="alternate icon" href="/static/images/favicon.svg">
+  <link rel="stylesheet" href="/static/style.css?v=6">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    .college-demo-float-container {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      z-index: 99999;
+    }
+    .college-demo-float-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #0c2340 0%, #1e3a5f 100%);
+      color: #fce6a4;
+      border: 1.5px solid #b48738;
+      border-radius: 50px;
+      padding: 12px 20px;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(12, 35, 64, 0.45);
+      font-family: inherit;
+      text-align: left;
+      transition: all .25s ease;
+    }
+    .college-demo-float-btn:hover {
+      background: linear-gradient(135deg, #1e3a5f 0%, #0c2340 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 35px rgba(180, 135, 56, 0.35);
+      border-color: #fce6a4;
+    }
+    .college-demo-float-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+    .demo-cap-icon { font-size: 24px; line-height: 1; }
+    .demo-txt-col strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fce6a4;
+    }
+    .demo-txt-col small {
+      display: block;
+      font-size: 11px;
+      color: #cbd5e1;
+    }
+    .demo-pulse-glow {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+      animation: demoGlow 2s infinite;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+    @keyframes demoGlow {
+      0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+    }
+  </style>
+</head>
+<body style="background:#fcfbf9">
+  <header class="header">
+    <a class="logo" href="/index.html">
+      <img src="/static/images/logo-icon.svg" class="logo-emblem" alt="Delux Tour & Travel">
+      <span>DELUX</span>
+      <small>TOUR & TRAVEL</small>
+    </a>
+    <button class="menu-btn" id="menuBtn">☰</button>
+    <nav id="nav">
+      <a href="/index.html">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/packages.html">Packages</a>
+      <a href="/plan.html">Plan Trip</a>
+      <a href="/gallery.html">Gallery</a>
+      <a href="/contact.html">Contact</a>
+      <a class="nav-login" href="/profile.html">My Profile</a>
+    </nav>
+  </header>
+
+  <main style="max-width: 680px; margin: 40px auto; padding: 0 20px;">
+    <div class="booking-receipt-card" style="box-shadow: 0 10px 40px rgba(0,0,0,0.06); border: 1px solid #fef3c7;">
+      <div class="receipt-success-icon" style="background:#f59e0b;color:#fff;width:64px;height:64px;font-size:28px;display:flex;align-items:center;justify-content:center;border-radius:50%;margin:0 auto 16px;">⏱</div>
+      <span class="receipt-badge" style="background:#fef3c7;color:#92400e;font-weight:700;padding:4px 12px;border-radius:20px;font-size:12px;letter-spacing:1px;">PAYMENT PENDING CONFIRMATION</span>
+      <h1 style="font-family:'Playfair Display',serif;font-size:26px;color:#0c2340;margin:12px 0 6px;">Payment is Processing...</h1>
+      <p style="color:#64748b;font-size:14px;margin-bottom:20px;">Your transaction has been initiated and is awaiting final confirmation from the payment gateway or bank.</p>
+
+      <table class="receipt-table" style="width:100%;border-collapse:collapse;margin:16px 0;text-align:left;font-size:13.5px;">
+        <tr style="border-bottom:1px solid #f1ece1;">
+          <td style="padding:10px 0;color:#64748b;">Booking Reference:</td>
+          <td style="padding:10px 0;text-align:right;"><code style="font-weight:bold;color:#0c2340;">{{ booking.booking_reference }}</code></td>
+        </tr>
+        <tr style="border-bottom:1px solid #f1ece1;">
+          <td style="padding:10px 0;color:#64748b;">Tour Package:</td>
+          <td style="padding:10px 0;text-align:right;"><strong>{{ booking.package_title }}</strong></td>
+        </tr>
+        <tr style="border-bottom:1px solid #f1ece1;">
+          <td style="padding:10px 0;color:#64748b;">Traveler:</td>
+          <td style="padding:10px 0;text-align:right;">{{ booking.full_name }}</td>
+        </tr>
+        <tr style="border-bottom:2px solid #0c2340;">
+          <td style="padding:12px 0;font-size:15px;font-weight:700;color:#0c2340;">Total Payable:</td>
+          <td style="padding:12px 0;text-align:right;font-size:17px;font-weight:800;color:#b48738;">₹{{ booking.total_amount|default:booking.package_price|floatformat:2 }}</td>
+        </tr>
+      </table>
+
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px;">
+        <button id="checkStatusBtn" class="btn primary" onclick="checkStatus({{ booking.id }})">
+          🔄 Refresh &amp; Check Status
+        </button>
+        <a href="/profile.html" class="btn outline">View in My Profile</a>
+      </div>
+      <p id="checkStatusMsg" style="font-size:13px;margin-top:14px;color:#64748b;"></p>
+    </div>
+  </main>
+
+  <!-- Floating College Presentation Demo Button (Bottom-Left Corner) -->
+  <div class="college-demo-float-container" id="collegeDemoFloat">
+    <button type="button" class="college-demo-float-btn" id="collegeDemoBtn" onclick="runCollegePresentationDemo({{ booking.id }})" title="Click during college presentation to show automated Tax Invoice email dispatch">
+      <span class="demo-cap-icon">🎓</span>
+      <div class="demo-txt-col">
+        <strong><span class="demo-pulse-glow"></span> College Presentation Demo</strong>
+        <small>Simulate Payment &amp; Send Invoice Email →</small>
+      </div>
+    </button>
+  </div>
+
+  <footer>
+    <div class="footer-brand">
+      <a class="logo footer-logo" href="/index.html">
+        <img src="/static/images/logo-icon.svg" class="logo-emblem" alt="Delux">
+        <span>DELUX</span>
+        <small>TOUR & TRAVEL</small>
+      </a>
+      <p>Premium travel experiences for curious people.</p>
+    </div>
+    <div><h4>Explore</h4><a href="/about.html">About</a><a href="/packages.html">Packages</a></div>
+    <div><h4>Support</h4><a href="/contact.html">Contact</a><a href="/plan.html">Plan Trip</a></div>
+    <div class="copyright">© Delux Tour &amp; Travel. All rights reserved.</div>
+  </footer>
+
+  <script>
+    async function checkStatus(bookingId) {
+      const msg = document.getElementById('checkStatusMsg');
+      const btn = document.getElementById('checkStatusBtn');
+      btn.disabled = true;
+      msg.textContent = 'Checking status with server...';
+
+      try {
+        const res = await fetch(`/api/payment/status/${bookingId}/`, { credentials: 'same-origin' });
+        const data = await res.json();
+        if (data.paymentStatus === 'Paid' || data.paymentStatus === 'PAID' || data.status === 'Confirmed' || data.status === 'CONFIRMED') {
+          msg.textContent = '🎉 Payment confirmed! Redirecting to tax invoice receipt...';
+          msg.style.color = '#16a34a';
+          setTimeout(() => { location.href = `/payment/success/${bookingId}/`; }, 1200);
+        } else if (data.status === 'REJECTED' || data.paymentStatus === 'REJECTED' || data.status === 'Payment Failed' || data.paymentStatus === 'Failed') {
+          msg.textContent = 'Payment could not be verified. Please retry with a valid UTR.';
+          msg.style.color = '#dc2626';
+          setTimeout(() => { location.href = `/payment/upi/${bookingId}/`; }, 1500);
+        } else {
+          msg.textContent = 'Your payment is awaiting staff verification against bank records. Auto-checking again...';
+          btn.disabled = false;
+        }
+      } catch {
+        msg.textContent = 'Error checking payment status. Please try again.';
+        btn.disabled = false;
+      }
+    }
+
+    async function runCollegePresentationDemo(bookingId) {
+      if (!confirm('🎓 College Presentation Demo Mode:\n\nSimulate successful payment verification and instantly send the official GST Tax Invoice email to {{ booking.email }}?')) {
+        return;
+      }
+
+      const floatBtn = document.getElementById('collegeDemoBtn');
+      if (floatBtn) {
+        floatBtn.disabled = true;
+        floatBtn.innerHTML = '<span class="demo-cap-icon">⏳</span><div class="demo-txt-col"><strong>Simulating Payment...</strong><small>Dispatching Tax Invoice Email...</small></div>';
+      }
+
+      try {
+        const res = await fetch(`/api/upi/demo-verify/${bookingId}/`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'same-origin'
+        });
+        const data = await res.json();
+        if (data.ok) {
+          alert('🎉 Presentation Demo Successful!\n\n✓ Payment verified & booking confirmed.\n✓ Official GST Tax Invoice dispatched to {{ booking.email }}.\n\nOpening Tax Invoice receipt now...');
+          location.href = data.redirectUrl || `/payment/success/${bookingId}/`;
+        } else {
+          alert(data.message || 'Demo simulation failed.');
+          if (floatBtn) {
+            floatBtn.disabled = false;
+            floatBtn.innerHTML = '<span class="demo-cap-icon">🎓</span><div class="demo-txt-col"><strong><span class="demo-pulse-glow"></span> College Presentation Demo</strong><small>Simulate Payment &amp; Send Invoice Email →</small></div>';
+          }
+        }
+      } catch (err) {
+        alert('Network error while running presentation demo.');
+        if (floatBtn) {
+          floatBtn.disabled = false;
+          floatBtn.innerHTML = '<span class="demo-cap-icon">🎓</span><div class="demo-txt-col"><strong><span class="demo-pulse-glow"></span> College Presentation Demo</strong><small>Simulate Payment &amp; Send Invoice Email →</small></div>';
+        }
+      }
+    }
+
+    // Auto-poll after 5 seconds
+    setTimeout(() => { checkStatus({{ booking.id }}); }, 5000);
+  </script>
+</body>
+</html>

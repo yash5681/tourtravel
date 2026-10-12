@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="32" height="32">
+  <defs>
+    <linearGradient id="favGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FCE6A4"/>
+      <stop offset="40%" stop-color="#D4AF37"/>
+      <stop offset="100%" stop-color="#7A560B"/>
+    </linearGradient>
+    <linearGradient id="favLight" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#AA7C1E"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="48" fill="#17201D" stroke="url(#favGold)" stroke-width="3"/>
+  <!-- 8-Point Compass Star -->
+  <polygon points="50,12 50,50 42,44" fill="url(#favLight)"/>
+  <polygon points="50,12 50,50 58,44" fill="url(#favGold)"/>
+  <polygon points="50,88 50,50 58,56" fill="url(#favLight)"/>
+  <polygon points="50,88 50,50 42,56" fill="url(#favGold)"/>
+  <polygon points="88,50 50,50 56,42" fill="url(#favLight)"/>
+  <polygon points="88,50 50,50 56,58" fill="url(#favGold)"/>
+  <polygon points="12,50 50,50 44,58" fill="url(#favLight)"/>
+  <polygon points="12,50 50,50 44,42" fill="url(#favGold)"/>
+  <polygon points="76,24 50,50 54,42" fill="url(#favLight)"/>
+  <polygon points="76,24 50,50 62,46" fill="url(#favGold)"/>
+  <polygon points="24,24 50,50 38,46" fill="url(#favLight)"/>
+  <polygon points="24,24 50,50 46,38" fill="url(#favGold)"/>
+  <polygon points="76,76 50,50 62,54" fill="url(#favLight)"/>
+  <polygon points="76,76 50,50 54,62" fill="url(#favGold)"/>
+  <polygon points="24,76 50,50 46,62" fill="url(#favLight)"/>
+  <polygon points="24,76 50,50 38,54" fill="url(#favGold)"/>
+  <circle cx="50" cy="50" r="8" fill="#17201D" stroke="url(#favGold)" stroke-width="2"/>
+  <circle cx="50" cy="50" r="3" fill="#FFFFFF"/>
+</svg>

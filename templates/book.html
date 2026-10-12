@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Package & Razorpay Checkout | Delux Tour & Travel</title>
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="alternate icon" href="images/favicon.svg">
+  <link rel="stylesheet" href="style.css?v=7">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <header class="header">
+    <a class="logo" href="index.html">
+      <img src="images/logo-icon.svg" class="logo-emblem" alt="Delux Tour & Travel">
+      <span>DELUX</span>
+      <small>TOUR & TRAVEL</small>
+    </a>
+    <button class="menu-btn" id="menuBtn">☰</button>
+    <nav id="nav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a class="active" href="packages.html">Packages</a>
+      <a href="plan.html">Plan Trip</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Contact</a>
+      <a class="nav-login" href="login.html">Login</a>
+      <a class="nav-register" href="register.html">Register</a>
+    </nav>
+  </header>
+
+  <section class="inner-heading">
+    <p class="eyebrow">ONLINE BOOKING & PAYMENT</p>
+    <h1>Secure your dream escape.</h1>
+    <p>Confirm your traveler details and complete secure online payment via Razorpay.</p>
+  </section>
+
+  <section class="form-section">
+    <!-- Selected Package Card -->
+    <div class="booking-package-card" id="bookingPackageCard">
+      <p style="padding:24px;">Loading package details…</p>
+    </div>
+
+    <!-- Login Required Gate (Shown if customer is not logged in) -->
+    <div class="booking-login-gate" id="bookingLoginGate" style="display:none;">
+      <div class="login-gate-icon">🔒</div>
+      <h3>Login Required to Book</h3>
+      <p>Please login to your account to reserve this tour package and proceed with secure online Razorpay payment.</p>
+      <div class="login-gate-actions">
+        <a href="login.html" id="gateLoginBtn" class="btn primary">Login to Continue →</a>
+        <a href="register.html" id="gateRegisterBtn" class="btn outline">Create New Account</a>
+      </div>
+    </div>
+
+    <!-- Booking & Razorpay Checkout Form -->
+    <form id="bookingForm" class="form-card">
+      <input type="hidden" name="packageId" id="packageIdField">
+
+      <div class="booking-auth-badge" id="bookingAuthBadge" style="display:none;">
+        <span class="auth-dot"></span> Logged in as: <strong id="authUserName">Traveler</strong>&nbsp;(<span id="authUserEmail">user@example.com</span>)
+      </div>
+
+      <div class="form-row">
+        <label>Full Name *<input name="fullName" required placeholder="Full Name as per ID"></label>
+        <label>Email Address *<input type="email" name="email" required placeholder="you@example.com"></label>
+      </div>
+
+      <div class="form-row">
+        <label>Mobile Number *<input name="phone" required placeholder="+91 98765 43210"></label>
+        <label>Preferred Travel Date *<input type="date" name="travelDate" required></label>
+      </div>
+
+      <label>Preferred Mode of Travel</label>
+      <div class="travel-mode-choice">
+        <label class="mode-option">
+          <input type="radio" name="travelMode" value="Flight" checked>
+          <span>✈ Flight Experience</span>
+        </label>
+        <label class="mode-option">
+          <input type="radio" name="travelMode" value="Train">
+          <span>🚆 Luxury Rail / Train</span>
+        </label>
+      </div>
+
+      <div class="form-row">
+        <label>Number of Travelers *
+          <select name="travelers" id="bookingTravelersSelect" required>
+            <option value="1" selected>1 Traveler</option>
+            <option value="2">2 Travelers</option>
+            <option value="3">3 Travelers</option>
+            <option value="4">4 Travelers</option>
+            <option value="5">5 Travelers</option>
+            <option value="6">6 Travelers</option>
+            <option value="7">7 Travelers</option>
+            <option value="8">8 Travelers</option>
+            <option value="9">9 Travelers</option>
+            <option value="10">10+ Group Travelers</option>
+          </select>
+        </label>
+      </div>
+
+      <label>Special Requests / Notes (optional)
+        <textarea name="notes" rows="3" placeholder="Hotel room preference, dietary requirements, honeymoon setup..."></textarea>
+      </label>
+
+      <!-- Dynamic Live Price Calculation Breakdown -->
+      <div class="razorpay-price-summary" id="priceSummaryBox">
+        <h4>✦ Order & Fare Summary</h4>
+        <div class="price-breakdown-row">
+          <span>Base Package Fare (<span id="summaryPkgTitle">Package</span>):</span>
+          <span id="summaryBasePrice">₹0 / person</span>
+        </div>
+        <div class="price-breakdown-row">
+          <span>Number of Travelers:</span>
+          <span id="summaryTravelersCount">1</span>
+        </div>
+        <div class="price-breakdown-row">
+          <span>GST, Permits & Service Fees:</span>
+          <span style="color:#27ae60;font-weight:700">All-Inclusive (₹0)</span>
+        </div>
+        <div class="price-breakdown-row total">
+          <span>Total Amount Payable:</span>
+          <strong>₹<span id="summaryTotalPayable">0</span></strong>
+        </div>
+      </div>
+
+      <!-- UPI Trust & Security Banner -->
+      <div class="razorpay-trust-banner">
+        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+        <div>
+          <span>Direct UPI Payment (GPay, PhonePe, Paytm, BHIM)</span><br>
+          <small style="font-weight:normal;color:#444">Zero Gateway Fees · Direct Bank-to-Bank Transfer · Instant QR Code</small>
+        </div>
+      </div>
+
+      <!-- UPI Submit Button -->
+      <button class="razorpay-pay-btn" type="submit" id="payRazorpaySubmitBtn">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+        <span>Proceed to UPI Payment (₹<span id="btnPayAmount">0</span>) →</span>
+      </button>
+
+      <p class="form-status" id="bookingStatus" style="text-align:center;margin-top:14px;font-size:14px;font-weight:600;"></p>
+    </form>
+  </section>
+
+  <footer>
+    <div class="footer-brand">
+      <a class="logo footer-logo" href="index.html">
+        <img src="images/logo-icon.svg" class="logo-emblem" alt="Delux">
+        <span>DELUX</span>
+        <small>TOUR & TRAVEL</small>
+      </a>
+      <p>Premium travel experiences for curious people.</p>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <a href="about.html">About</a>
+      <a href="packages.html">Packages</a>
+      <a href="gallery.html">Gallery</a>
+    </div>
+    <div>
+      <h4>Support</h4>
+      <a href="contact.html">Contact</a>
+      <a href="plan.html">Plan Trip</a>
+    </div>
+    <div class="footer-social">
+      <h4>Follow</h4>
+      <a href="https://instagram.com/deluxtourtravel" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://facebook.com/deluxtourtravel" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://youtube.com/@deluxtourtravel" target="_blank" rel="noopener">YouTube</a>
+    </div>
+    <div class="copyright">© Yash Prajapati <a class="admin-link" href="admin-login.html">Admin</a></div>
+  </footer>
+
+  <!-- Interactive WhatsApp Concierge Chat Widget -->
+  <div id="waWidgetContainer">
+    <a class="wa-widget-bubble" id="waToggleBtn" title="Chat with Delux Travel Concierge on WhatsApp"
+      href="https://wa.me/919023433407?text=Hello%20Delux%20Tour%20%26%20Travel!%20I%20would%20like%20to%20inquire%20about%20your%20holiday%20packages."
+      target="_blank" onclick="event.preventDefault(); window.toggleDeluxWhatsApp();">
+      <span class="wa-pulse-dot"></span>
+      <svg viewBox="0 0 24 24">
+        <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.4-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.38-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.17-.48-.29z" />
+      </svg>
+      <span>WhatsApp Chat</span>
+    </a>
+    <div class="wa-chat-box" id="waChatBox">
+      <div class="wa-chat-header">
+        <div class="wa-chat-header-info">
+          <img src="images/logo-icon.svg" alt="Concierge" class="wa-avatar">
+          <div>
+            <h4>Delux Travel Concierge</h4>
+            <span><span style="display:inline-block;width:7px;height:7px;background:#25d366;border-radius:50%"></span> Online · Quick Replies</span>
+          </div>
+        </div>
+        <button class="wa-chat-close" id="waCloseBtn" onclick="window.closeDeluxWhatsApp()">&times;</button>
+      </div>
+      <div class="wa-chat-body">
+        <div class="wa-bubble">
+          Hello! 👋 Welcome to <strong>Delux Tour & Travel</strong>. Looking for an unforgettable holiday or custom itinerary? How can we help you today?
+        </div>
+        <div class="wa-chips">
+          <button class="wa-chip" data-msg="Hi! I want details & pricing for the Bali Island Escape package.">🌴 Bali Island Package quote</button>
+          <button class="wa-chip" data-msg="Hello! Can you help me plan a custom Switzerland & Europe trip?">🗺️ Custom European Trip Plan</button>
+          <button class="wa-chip" data-msg="Hi! I would like to know about Train vs Flight travel options for packages.">🚆 Train vs Flight booking options</button>
+          <button class="wa-chip" data-msg="Hello! What are your best upcoming seasonal offers and discounts?">🏷️ Today's Best Tour Deals</button>
+        </div>
+      </div>
+      <div class="wa-chat-footer">
+        <input type="text" id="waCustomInput" placeholder="Type your travel inquiry..." />
+        <button class="wa-chat-send" id="waSendBtn" title="Send to WhatsApp" onclick="window.sendWhatsAppCustom()">
+          <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" /></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js?v=5"></script>
+  <script src="app.js?v=5"></script>
+</body>
+
+</html>
